@@ -37,6 +37,22 @@ class CircularLinkedList {
         tmp->next->next = this->head;
     };
 
+    void remove(const T& value){
+        Node<T>* tmp = this->head;
+        Node<T>* prev = nullptr;
+        do{
+            prev = tmp;
+            tmp = tmp->next;
+        }while(tmp != this->head && tmp->value != value);
+
+        if(tmp->value == value){
+            prev->next = tmp->next;
+            delete tmp;
+        }
+
+        return;
+    }
+
     void show() {
         Node<T>* tmp = this->head;
         do {
@@ -62,11 +78,15 @@ class Dict{
         }
 
         void remove(const K& key){
-            Node* tmpHead = this->keys
+            this->keys->remove(key);
         }
 
         void showValues(){
             this->values->show();
+        }
+
+        void showKeys(){
+            this->keys->show();
         }
 };
 
@@ -82,14 +102,20 @@ int main(void) {
     // circularLinkedList->show();
 
     Dict<int, int>* myDict = new Dict<int, int>();
+     
     myDict->insert(0, 1);
     myDict->insert(1, 1);
     myDict->insert(2, 3);
     myDict->insert(3, 4);
     myDict->insert(4, 5);
     myDict->insert(5, 1);
-
-    myDict->showValues();
+    myDict->showKeys();
+    myDict->remove(3);
+    myDict->showKeys();
+    myDict->remove(2);
+    myDict->showKeys();
+    myDict->remove(5);
+    myDict->showKeys();
     // myDict.remove(1);
 
     return 0;
