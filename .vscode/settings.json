@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "atomic": "cpp",
+    "array": "cpp",
+    "string": "cpp",
+    "string_view": "cpp"
+  }
+}

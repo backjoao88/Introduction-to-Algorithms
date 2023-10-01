@@ -4,9 +4,8 @@
 
 - A complexidade de tempo e o número de instruções básicas que aquele algoritmo executa (no modelo RAM por exemplo seria o número de instruções que a CPU realiza para rodar um determinado algoritmo).
 - O algoritmo do <i>insertion sort</i> por meio da abordagem "ingênua" de identificação de complexidade do algoritmo está apresentado abaixo. Cada linha possui um custo (Ck), e também o número de vezes que será executada.
-- O valor do número de execuções que serão realizados nas linhas enumeradas pela
-variável <i>t</i> é indefinido, pois isso depende de como os valores de entrada estão arranjados no início. Por exemplo, caso demos como entrada um vetor já ordenado, o número de vezes que as linhas dentro do laço <i>while</i> serão executados será mínima. O contrário acontece para o pior caso, quando o vetor está totalmente desordenado.
-- Isso acontece (eu imaginno), devido ao operador de comparação (>) que depende diretamente dos valores inseridos dentro do array.
+- O valor do número de execuções que serão realizados nas linhas enumeradas pela variável <i>t</i> é indefinido, pois isso depende de como os valores de entrada estão arranjados no início. Por exemplo, caso demos como entrada um vetor já ordenado, o número de vezes que as linhas dentro do laço <i>while</i> serão executados será mínima. O contrário acontece para o pior caso, quando o vetor está totalmente desordenado.
+- Isso acontece devido ao operador de comparação (>) que depende diretamente dos valores inseridos dentro do array.
 ```
 void sort(int *A)
 {

@@ -1,10 +1,8 @@
 #define HASHMAP_SIZE 17
 
-// UM BYTE POSSUI 256 COMBINAÇÕES POSSÍVEIS POIS 2^8 = 256
-
 #include <stdio.h>
 
-namespace Dict
+namespace Chapter11::Dict
 {
     struct LLNode
     {
@@ -45,7 +43,7 @@ namespace Dict
 
     struct LL
     {
-        LLNode *head;
+        LLNode *head = nullptr;
         void insert(int type, void *value)
         {
             if (this->head == nullptr)
@@ -77,7 +75,6 @@ namespace Dict
         void printKey(const char *key)
         {
             int index = this->hashFn(key);
-            printf("%d \n", index);
             LLNode *head = this->data[index].head;
             LLNode *aux = head;
             while (aux != nullptr)
@@ -101,23 +98,51 @@ namespace Dict
             printf("\n");
         }
 
+        int count(const char *key)
+        {
+            int index = this->hashFn(key);
+            LLNode *head = this->data[index].head;
+            LLNode *aux = head;
+            int count = 0;
+            while (aux != nullptr)
+            {
+                count++;
+                aux = aux->next;
+            }
+            return count;
+        }
+
+        // Shift Folding Function
         int hashFn(const char *key)
         {
-            return 0;
+            int index = 0;
+            char currentChar = key[0];
+            int asciiSum = 0;
+            while (currentChar != '\0')
+            {
+                currentChar = key[index];
+                int ascii = int(currentChar);
+                asciiSum += ascii;
+                ++index;
+            }
+            return asciiSum % HASHMAP_SIZE;
         }
     };
 };
 
 int main(void)
 {
-    Dict::Dict *dict = new Dict::Dict();
+    Chapter11::Dict::Dict *dict = new Chapter11::Dict::Dict();
     int integer = 13;
     char string[] = "João";
     float teste = 2.1312321543;
-    dict->insert("1", 0, (void *)&integer);
-    dict->insert("1", 0, (void *)&integer);
+    dict->insert("10", 0, (void *)&integer);
+    dict->insert("101", 0, (void *)&integer);
     dict->insert("1", 1, (void *)string);
-    dict->insert("1", 2, (void *)&teste);
+    dict->insert("10", 2, (void *)&teste);
+    dict->insert("101", 2, (void *)&teste);
+    dict->printKey("101");
     dict->printKey("1");
+    dict->printKey("10");
     int value = 0;
 }
