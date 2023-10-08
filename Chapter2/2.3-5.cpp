@@ -8,57 +8,13 @@
  *
  */
 
-#include <stdio.h>
-
-namespace Chapter2
-{
-
-    class InsertionSortRecursive
-    {
-    public:
-        void sort(int *A, int N)
-        {
-            if (N == 0)
-            {
-                // if zero, doesn't make the comparisons.
-                return;
-            }
-            this->sort(A, N - 1);
-
-            int j = A[N];
-            printf("checking %d [idx: %d].. ", j, N);
-            printf("[ ");
-            while (N > 0 && j < A[N - 1])
-            {
-                A[N] = A[N - 1];
-                N--;
-                printf("%d ", N);
-            };
-            printf(" ]");
-            A[N] = j;
-            printf("\n");
-        };
-
-        void show(int *A, int N)
-        {
-            for (auto i = 0; i < N; i++)
-            {
-                printf("%d ", A[i]);
-            }
-            printf("\n");
-        };
-    };
-};
-
-using namespace Chapter2;
+#include "recursive_insertion_sort.h"
 
 int main()
 {
     // int A[] = {1, 2, 3, 10, 8, 12, 9};
     int A[] = {15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
     int N = sizeof(A) / sizeof(A[0]);
-    InsertionSortRecursive *insertion = new InsertionSortRecursive();
-    insertion->sort(A, N - 1);
-    insertion->show(A, N);
+    sort(A, N);
     return 0;
 }
