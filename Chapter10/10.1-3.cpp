@@ -11,42 +11,52 @@
 
 const int MAX_SIZE = 6;
 
-class Queue {
-   public:
-    void enqueue(int value) {
+class Queue
+{
+public:
+    void enqueue(int value)
+    {
         this->last++;
         this->m_data[this->last] = value;
     }
-    void dequeue() {
-        for (int i = 0; i < MAX_SIZE - 1; i++) {
-            if (this->m_data[i] != -1) {
+    void dequeue()
+    {
+        for (int i = 0; i < MAX_SIZE - 1; i++)
+        {
+            if (this->m_data[i] != -1)
+            {
                 this->m_data[i] = this->m_data[i + 1];
             }
         }
         this->last--;
     }
-    void print() {
-        for (int i = 0; i < MAX_SIZE; i++) {
+    void print()
+    {
+        for (int i = 0; i < MAX_SIZE; i++)
+        {
             printf("%d  ", this->m_data[i]);
         }
         printf("\n");
     }
-    Queue() {
-        for (int i = 0; i < MAX_SIZE; i++) {
+    Queue()
+    {
+        for (int i = 0; i < MAX_SIZE; i++)
+        {
             this->m_data[i] = -1;
         }
         this->last = -1;
     }
     ~Queue();
 
-   private:
+private:
     int m_data[MAX_SIZE];
     int last;
 };
 
-int main(void) {
+int main(void)
+{
     srand(time(0));
-    Queue* queue = new Queue();
+    Queue *queue = new Queue();
     queue->enqueue(1);
     queue->enqueue(3);
     queue->dequeue();

@@ -21,6 +21,26 @@ namespace Chapter12
             this->rightChild = nullptr;
             this->info = info;
         }
+
+        bool hasChildOnRight()
+        {
+            return this->rightChild != nullptr;
+        }
+
+        bool hasChildOnLeft()
+        {
+            return this->leftChild != nullptr;
+        }
+
+        bool isLeaf()
+        {
+            return this->leftChild == nullptr && this->rightChild == nullptr;
+        }
+
+        void printNodeInfo()
+        {
+            printf("Node Addr %p, Left Child Addr = %p, Right Child Addr = %p, Value = %d\n", this, this->leftChild, this->rightChild, *(int *)this->info);
+        }
     };
 
     struct Stack
@@ -214,6 +234,57 @@ namespace Chapter12
             }
         };
 
+        void remove(void *el)
+        {
+            this->removeImpl(this->root, el);
+        }
+
+        void removeImpl(TNode *&root, void *el)
+        {
+            if (el == nullptr)
+            {
+                return;
+            }
+
+            if (get_el_as_int(el) > get_el_as_int(root->info))
+            {
+                removeImpl(root->rightChild, el);
+            }
+            else
+            {
+                if (get_el_as_int(el) < get_el_as_int(root->info))
+                {
+                    removeImpl(root->leftChild, el);
+                }
+                else
+                {
+                    if (root->isLeaf())
+                    {
+                        root = nullptr;
+                        return;
+                    }
+                    if (root->hasChildOnLeft() && !root->hasChildOnRight())
+                    {
+                        root = root->leftChild;
+                        return;
+                    }
+
+                    if (!root->hasChildOnLeft() && root->hasChildOnRight())
+                    {
+                        root = root->rightChild;
+                        return;
+                    }
+                    TNode *aux = root;
+                    while (aux->leftChild != nullptr)
+                    {
+                        aux = aux->leftChild;
+                    };
+                    root->info = aux->info;
+                    removeImpl(root->leftChild, aux->info);
+                }
+            }
+        }
+
         void preOrder()
         {
             preOrderRecursive(this->root);
@@ -334,10 +405,9 @@ void test_recursive_binary_tree()
     tree->insert(&ten);
     tree->insert(&eleven);
 
-    // print tree
     tree->preOrder();
-    tree->inOrder();
-    tree->posOrder();
+    tree->remove(&third);
+    tree->preOrder();
 }
 
 void test_iterative_binary_tree()
@@ -373,7 +443,7 @@ int main(void)
     // test_stack();
     printf("%% test recursive binary tree\n");
     test_recursive_binary_tree();
-    printf("%% test iterative binary tree\n");
-    test_iterative_binary_tree();
+    // printf("%% test iterative binary tree\n");
+    // test_iterative_binary_tree();
     return 0;
 }

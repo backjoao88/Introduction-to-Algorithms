@@ -11,7 +11,6 @@
  * R: It is lg(n) because of the number of the division that occurs.
  * The function that may represent the worst case is (N/2^k) = (n/2)+(n/4)+(n/8)....
  *
- *
  */
 
 #include <math.h>
