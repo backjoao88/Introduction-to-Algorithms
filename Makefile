@@ -3,6 +3,7 @@ all: clean compile execute
 clean:
 	rm -rf Binaries/*
 compile:
-	g++ Chapter2/2.3-8.cpp -o Binaries/2.3-8.o
+	# g++ Chapter12/Trees/test_binary_tree.cpp  -o Binaries/test_binary_tree.o
+	g++ Chapter12/12.2-7.cpp -o Binaries/12.2-7.o
 execute:
-	./Binaries/2.3-8.o
+	./Binaries/12.2-7.o

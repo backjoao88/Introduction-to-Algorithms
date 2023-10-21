@@ -3,31 +3,18 @@
  */
 
 #include <stdio.h>
+#include "../Chapter12/Trees/binary_tree.h"
 
-#include <stack>
+using namespace Chapter12;
 
-#include "./BinaryTree/Tree.h"
-
-using namespace Chapter10;
-
-/**
- *
- *                                  18
- *                          12              21
- *                  (10)      ()      ()      ()
- *             (1)        (7)
- *                      (2)
- *
- */
-
-int main(void) {
-    BinaryTree* tree = new BinaryTree();
-    tree->m_root = new Node(18);
-    tree->insert(12);
-    tree->insert(10);
-    tree->insert(21);
-    tree->insert(1);
-    tree->insert(7);
-    tree->insert(2);
-    tree->printNonRecursive();
+int main(void)
+{
+    int first = 1;
+    int second = 3;
+    int third = 10;
+    IterativeBinaryTree *tree = new IterativeBinaryTree();
+    tree->insert(&first);
+    tree->insert(&second);
+    tree->insert(&third);
+    tree->inOrder();
 };

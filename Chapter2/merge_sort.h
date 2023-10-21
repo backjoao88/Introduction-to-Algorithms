@@ -45,6 +45,9 @@ namespace Chapter2
 
             int l = 0;
             int r = 0;
+
+            // O(n) - aqui ele junta, realizando comparações em todos elementos dos vetores da iteração
+            // atual
             for (int k = start; k <= end; k++)
             {
                 if (L[l] <= R[r])
@@ -64,6 +67,7 @@ namespace Chapter2
             if (start < end)
             {
                 int middle = (end + start) / DIVISION;
+                // Aqui ele divide em escala logarítimica, por isso O(log(n))
                 sort(A, start, middle);
                 sort(A, middle + 1, end);
                 merge(A, start, middle, end);

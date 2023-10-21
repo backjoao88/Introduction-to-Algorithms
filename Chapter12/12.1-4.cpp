@@ -9,68 +9,73 @@
 
 #define MAX_CHILD_NODES 10
 
-struct TNode
+namespace Chapter12
 {
-    void *info;
-    struct TNode *children[MAX_CHILD_NODES];
-
-    TNode(void *info)
+    struct TNode
     {
-        this->info = info;
-        for (auto i = 0; i < MAX_CHILD_NODES; i++)
+        void *info;
+        struct TNode *children[MAX_CHILD_NODES];
+
+        TNode(void *info)
         {
-            children[i] = nullptr;
-        };
-    }
-};
-
-struct NthTree
-{
-    struct TNode *root;
-    NthTree()
-    {
-        this->root = nullptr;
-    }
-
-    void preOrder()
-    {
-        printf("pre order\n");
-        preOrderRecursive(this->root);
-        printf("\n");
-    }
-
-    void preOrderRecursive(TNode *root)
-    {
-        if (root == nullptr)
-        {
-            return;
+            this->info = info;
+            for (auto i = 0; i < MAX_CHILD_NODES; i++)
+            {
+                children[i] = nullptr;
+            };
         }
-        printf("%d ", (*(int *)root->info));
-        for (auto i = 0; i < MAX_CHILD_NODES; i++)
-        {
-            preOrderRecursive(root->children[i]);
-        }
-    }
-    void posOrder()
-    {
-        printf("pos order\n");
-        posOrderRecursive(this->root);
-        printf("\n");
-    }
+    };
 
-    void posOrderRecursive(TNode *root)
+    struct NthTree
     {
-        if (root == nullptr)
+        struct TNode *root;
+        NthTree()
         {
-            return;
+            this->root = nullptr;
         }
-        for (auto i = 0; i < MAX_CHILD_NODES; i++)
+
+        void preOrder()
         {
-            preOrderRecursive(root->children[i]);
+            printf("pre order\n");
+            preOrderRecursive(this->root);
+            printf("\n");
         }
-        printf("%d ", (*(int *)root->info));
-    }
-};
+
+        void preOrderRecursive(TNode *root)
+        {
+            if (root == nullptr)
+            {
+                return;
+            }
+            printf("%d ", (*(int *)root->info));
+            for (auto i = 0; i < MAX_CHILD_NODES; i++)
+            {
+                preOrderRecursive(root->children[i]);
+            }
+        }
+        void posOrder()
+        {
+            printf("pos order\n");
+            posOrderRecursive(this->root);
+            printf("\n");
+        }
+
+        void posOrderRecursive(TNode *root)
+        {
+            if (root == nullptr)
+            {
+                return;
+            }
+            for (auto i = 0; i < MAX_CHILD_NODES; i++)
+            {
+                preOrderRecursive(root->children[i]);
+            }
+            printf("%d ", (*(int *)root->info));
+        }
+    };
+}
+
+using namespace Chapter12;
 
 int main()
 {
