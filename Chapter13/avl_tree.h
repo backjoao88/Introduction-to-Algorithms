@@ -111,5 +111,15 @@ namespace Chapter13
             leftNode->height = 1 + std::max(height(static_cast<AvlNode *>(leftNode->leftChild)), nodeToBeRotated->height);
             return leftNode;
         }
+
+        AvlNode *simplyRotateFromRight(AvlNode *nodeToBeRotated)
+        {
+            AvlNode *rightNode = static_cast<AvlNode *>(nodeToBeRotated->rightChild);
+            nodeToBeRotated->rightChild = rightNode->leftChild;
+            rightNode->leftChild = nodeToBeRotated;
+            nodeToBeRotated->height = 1 + std::max(height(static_cast<AvlNode *>(nodeToBeRotated->leftChild)), height(static_cast<AvlNode *>(nodeToBeRotated->rightChild)));
+            rightNode->height = 1 + std::max(height(static_cast<AvlNode *>(rightNode->leftChild)), nodeToBeRotated->height);
+            return rightNode;
+        }
     };
 };
