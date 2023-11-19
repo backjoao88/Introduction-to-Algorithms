@@ -109,6 +109,77 @@ namespace Chapter12
             return *((int *)el);
         };
 
+        /**
+         * This function will replace a given node U for a given node V from the tree, replacing all it's children.
+         */
+
+        void transplant(TNode *U, TNode *V)
+        {
+            transplantImpl(this->root, U, V);
+        }
+
+        void transplantImpl(TNode *root, TNode *U, TNode *V)
+        {
+            TNode *parent = U->parent;
+            if (parent == nullptr)
+            {
+                this->root = V;
+            }
+            else
+            {
+                if (parent->leftChild == U)
+                {
+                    parent->leftChild = V;
+                }
+                else
+                {
+                    parent->rightChild = V;
+                }
+            }
+            if (V != nullptr)
+            {
+                V->parent = parent;
+            }
+            return;
+        }
+
+        void removeWithTransplant(TNode *el)
+        {
+            if (!el->hasChildOnLeft())
+            {
+                this->transplant(el, el->rightChild);
+            }
+            else
+            {
+                if (!el->hasChildOnRight())
+                {
+                    this->transplant(el, el->leftChild);
+                }
+                else
+                {
+                    // Get the successor of the element
+                    TNode *min = this->minimum(el->rightChild);
+                    // Saves the minimun right child (here left child is null)
+                    this->transplant(min, min->rightChild);
+                    // Adjust the min pointer to save the el left child and right child
+                    min->leftChild = el->leftChild;
+                    min->rightChild = el->rightChild;
+                    // Finally, transplant the el with it's successor
+                    this->transplant(el, min);
+                }
+            }
+        }
+
+        TNode *minimum(TNode *from)
+        {
+            TNode *aux = from;
+            while (aux->leftChild != nullptr)
+            {
+                aux = aux->leftChild;
+            }
+            return aux;
+        }
+
         TNode *search(TNode *root, void *el)
         {
             if (root == nullptr)

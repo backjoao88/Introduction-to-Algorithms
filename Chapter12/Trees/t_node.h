@@ -17,6 +17,11 @@ namespace Chapter12
             this->info = info;
         }
 
+        int get_as_int()
+        {
+            return (*(int *)info);
+        }
+
         bool hasChildOnRight()
         {
             return this->rightChild != nullptr;

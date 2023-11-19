@@ -1,9 +1,9 @@
 all: clean compile execute
 
 clean:
-	rm -rf Binaries/*
+	rm -rf Binaries
+	mkdir Binaries
 compile:
-	# g++ Chapter12/Trees/test_binary_tree.cpp  -o Binaries/test_binary_tree.o
-	g++ Chapter12/12.2-7.cpp -o Binaries/12.2-7.o
+	g++ Chapter13/avl_tree.cpp -o Binaries/avl_tree.o
 execute:
-	./Binaries/12.2-7.o
+	./Binaries/avl_tree.o
