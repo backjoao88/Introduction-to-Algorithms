@@ -4,6 +4,6 @@ clean:
 	rm -rf Binaries
 	mkdir Binaries
 compile:
-	g++ Chapter13/avl_tree.cpp -o Binaries/avl_tree.o
+	g++ Chapter18/b_tree.cpp -o Binaries/b_tree.o
 execute:
-	./Binaries/avl_tree.o
+	./Binaries/b_tree.o

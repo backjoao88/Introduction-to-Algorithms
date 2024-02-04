@@ -200,18 +200,18 @@ namespace Chapter12
             }
         }
 
-        void insert(void *el)
+        TNode *insert(void *el)
         {
-            this->insertImpl(this->root, el);
+            return this->insertImpl(this->root, el);
         }
 
-        void insertImpl(TNode *&root, void *el)
+        TNode *insertImpl(TNode *&root, void *el)
         {
             if (root == nullptr)
             {
                 TNode *node = new TNode(el);
                 root = node;
-                return;
+                return root;
             }
 
             if (get_el_as_int(el) < get_el_as_int(root->info))
@@ -224,6 +224,7 @@ namespace Chapter12
                 insertImpl(root->rightChild, el);
                 root->rightChild->parent = root;
             }
+            return root;
         };
 
         void remove(void *el)
