@@ -1,32 +1,8 @@
 // Btree implementation
 #include <stdio.h>
+#include "b_node.h"
 #include "b_tree_utils.h"
 #define T 2
-
-// Represents a node from a B tree
-template <typename KeyType>
-class BNode
-{
-public:
-    BNode(bool isLeaf)
-    {
-        this->isLeaf = isLeaf;
-        this->keyCount = -1;
-        this->keys = new KeyType[2 * T];
-        this->children = new BNode *[2 * T + 1];
-    };
-    ~BNode()
-    {
-        for (auto child : this->children)
-        {
-            delete child;
-        };
-    };
-    BNode **children;
-    KeyType *keys;
-    unsigned int keyCount;
-    bool isLeaf;
-};
 
 // Represents a Btree
 template <typename KeyType>
@@ -39,20 +15,33 @@ public:
         if (root == nullptr)
         {
             this->root = new BNode<KeyType>(true);
-            int keyCount = ++this->root->keyCount;
-            this->root->keys[keyCount] = key;
+            this->root->keys[this->root->keyCount] = key;
+            ++this->root->keyCount;
+#ifdef DEBUG
+            printf("> inserting root value %d at pos %d\n", key, this->root->keyCount - 1);
+            show_values(this->root);
+#endif
+
             return;
         }
 
-        BNode<KeyType> *refs = root;
+        BNode<KeyType> *node = root;
+        BNode<KeyType> *parent = nullptr;
 
-        if (!refs->isLeaf)
+        if (!node->isLeaf)
         {
             return;
         }
-        ++this->root->keyCount;
-        insert_key(this->root->keys, this->root->keyCount, key);
 
-        return;
+        insert_key(node->keys, node->keyCount, key);
+        ++node->keyCount;
+#ifdef DEBUG
+        show_values(node);
+#endif
+
+        if (node->is_full())
+        {
+            split_node<KeyType>(node, parent);
+        }
     };
 };

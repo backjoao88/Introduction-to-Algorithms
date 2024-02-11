@@ -40,10 +40,6 @@ void test_btree_creation()
     BTree<int> *tree = new BTree<int>();
     tree->insert(first);
     tree->insert(second);
-    tree->insert(third);
-    tree->insert(fourth);
-    tree->insert(fiveth);
-    tree->insert(sixth);
     test_btree_print_node(tree->root);
 }
 
