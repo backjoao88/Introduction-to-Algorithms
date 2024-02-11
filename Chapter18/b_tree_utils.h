@@ -37,6 +37,9 @@ void erase_key(KeyType *arrKeys, int keyCount, KeyType key)
     {
         arrKeys[index] = arrKeys[index + 1];
     }
+#ifdef DEBUG
+    printf("> key %d erased in %p at pos %d\n", key, arrKeys, index);
+#endif
 }
 
 template <typename KeyType>
@@ -82,6 +85,11 @@ void split_node(BNode<KeyType> *node, BNode<KeyType> *parent)
     newNode->keyCount++;
 #ifdef DEBUG
     show_values(newNode);
+#endif
+    erase_key<KeyType>(node->keys, node->keyCount, node->keys[middle + 1]);
+    node->keyCount--;
+#ifdef DEBUG
+    show_values(node);
 #endif
     return;
 }
